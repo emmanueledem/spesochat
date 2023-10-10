@@ -1,7 +1,8 @@
+// ignore_for_file: inference_failure_on_function_return_type
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gap/gap.dart';
-import 'package:spesochat/app/app.dart';
 import 'package:spesochat/core/constants/app_assets.dart';
 import 'package:spesochat/core/constants/app_fonts.dart';
 import 'package:spesochat/core/constants/colors.dart';
@@ -74,11 +75,11 @@ class _InputFieldState extends State<InputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        HeaderText(
-          widget.label.toString(),
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
+        // HeaderText(
+        //   widget.label.toString(),
+        //   fontSize: 16,
+        //   fontWeight: FontWeight.w600,
+        // ),
         const Gap(10),
         GestureDetector(
           child: Container(

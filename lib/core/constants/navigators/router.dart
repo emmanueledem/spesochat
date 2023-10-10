@@ -13,16 +13,25 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       );
 
     case RouteName.home:
+      final args = settings.arguments as HomeViewParams;
       return _getPageRoute(
         routeName: settings.name!,
-        viewToShow: const HomeView(),
+        viewToShow: HomeView(
+          params: args,
+        ),
       );
 
-    // case RouteName.createAccountSuccessView:
-    //   return _getPageRoute(
-    //     routeName: settings.name!,
-    //     viewToShow: const CreateAccountSuccessView(),
-    //   );
+    case RouteName.registerView:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const RegisterView(),
+      );
+
+    case RouteName.loginView:
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: const LoginView(),
+      );
 
     // case RouteName.faceIdActivationView:
     //   final args = settings.arguments as FaceIdActivationViewParams;
