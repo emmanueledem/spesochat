@@ -222,6 +222,8 @@ class _LoginViewState extends State<LoginView> {
                                                 username: authProvider
                                                     .availableData[0].username
                                                     .toString(),
+                                                id: authProvider
+                                                    .availableData[0].id!,
                                               ),
                                             );
                                             _emailController.clear();
