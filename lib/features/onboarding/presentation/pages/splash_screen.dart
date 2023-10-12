@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:spesochat/core/constants/app_assets.dart';
-import 'package:spesochat/core/constants/navigators/navigators.dart';
+import 'package:spesochat/core/core.dart';
+import 'package:spesochat/features/features.dart';
 
 class SplashView extends StatefulWidget {
   const SplashView({super.key});
@@ -14,10 +15,24 @@ class SplashView extends StatefulWidget {
 class _SplashViewState extends State<SplashView>
     with SingleTickerProviderStateMixin {
   late AnimationController logoContoller;
+  final TempStorage tempStorage = TempStorage();
 
   void _handleStartup() {
-    Future.delayed(const Duration(seconds: 2), () {
-      Navigator.pushNamed(context, RouteName.registerView);
+    Future.delayed(const Duration(seconds: 2), () async {
+      await tempStorage.getUser().then((value) {
+        if (value == null) {
+          Navigator.pushNamed(context, RouteName.registerView);
+        } else {
+          Navigator.pushNamed(
+            context,
+            RouteName.home,
+            arguments: HomeViewParams(
+              id: value.id!,
+              username: value.username.toString(),
+            ),
+          );
+        }
+      });
     });
   }
 

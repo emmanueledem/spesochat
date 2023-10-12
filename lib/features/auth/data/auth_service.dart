@@ -1,4 +1,3 @@
-
 import 'package:logger/logger.dart';
 import 'package:spesochat/core/database_helper.dart';
 import 'package:spesochat/features/auth/auth.dart';
@@ -19,7 +18,6 @@ class AuthService {
     )
         .then((value) async {
       result = true;
-      await getNotesAllNotes();
     });
     return result;
   }
@@ -35,18 +33,6 @@ class AuthService {
     );
 
     Logger().d(queryResponse);
-    return queryResponse.map(UsersModel.fromJson).toList();
-  }
-
-  Future<List<UsersModel>> getNotesAllNotes() async {
-    dbHelper = DatabaseHelper();
-    await dbHelper.initDB();
-    final List<Map<String, dynamic>> queryResponse = await dbHelper.db.query(
-      tableUser,
-      orderBy: 'id DESC',
-    );
-    Logger().d(queryResponse);
-
     return queryResponse.map(UsersModel.fromJson).toList();
   }
 }
