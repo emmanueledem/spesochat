@@ -33,14 +33,24 @@ Route<dynamic> generateRoute(RouteSettings settings) {
         viewToShow: const LoginView(),
       );
 
-    // case RouteName.faceIdActivationView:
-    //   final args = settings.arguments as FaceIdActivationViewParams;
-    //   return _getPageRoute(
-    //     routeName: settings.name!,
-    //     viewToShow: FaceIdActivationView(
-    //       params: args,
-    //     ),
-    //   );
+    case RouteName.createFriendView:
+      final args = settings.arguments as CreateFriendViewParams;
+
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: CreateFriendView(
+          params: args,
+        ),
+      );
+
+    case RouteName.chatScreenView:
+      final args = settings.arguments as ChatScreenViewParams;
+      return _getPageRoute(
+        routeName: settings.name!,
+        viewToShow: ChatScreenView(
+          params: args,
+        ),
+      );
 
     default:
       return MaterialPageRoute<dynamic>(

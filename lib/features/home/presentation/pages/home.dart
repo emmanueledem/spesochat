@@ -83,7 +83,16 @@ class _HomeViewState extends State<HomeView> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primaryColor,
         child: const Icon(Icons.add),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.pushNamed(
+            context,
+            RouteName.createFriendView,
+            arguments: CreateFriendViewParams(
+              id: widget.params.id,
+              username: widget.params.username,
+            ),
+          );
+        },
       ),
       body: Consumer<HomeProvider>(
         builder: (context, homeProvider, child) {
@@ -119,64 +128,79 @@ class _HomeViewState extends State<HomeView> {
                           itemCount: homeProvider.availableData.length,
                           itemBuilder: (context, index) {
                             final item = homeProvider.availableData[index];
-                            return Padding(
-                              padding: const EdgeInsets.only(
-                                bottom: 30,
-                              ),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  SvgPicture.asset(
-                                    AppAssets.userIcon,
-                                    height: 50,
-                                    width: 50,
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  RouteName.chatScreenView,
+                                  arguments: ChatScreenViewParams(
+                                    recieverId: item.id.toString(),
+                                    senderId: widget.params.id.toString(),
+                                    recieverName: item.username.toString(),
                                   ),
-                                  const Gap(10),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      TextRegular(
-                                        item.username.toString(),
-                                        fontWeight: FontWeight.w500,
-                                      ),
-                                      SizedBox(
-                                        width: screenWidth(context) / 2,
-                                        child: TextRegular(
-                                          item.emailAddress.toString(),
+                                );
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.only(
+                                  bottom: 30,
+                                ),
+                                child: Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SvgPicture.asset(
+                                      AppAssets.userIcon,
+                                      height: 50,
+                                      width: 50,
+                                    ),
+                                    const Gap(10),
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextRegular(
+                                          item.username.toString(),
                                           fontWeight: FontWeight.w500,
                                         ),
-                                      ),
-                                    ],
-                                  ),
-                                  const Spacer(),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      await homeProvider
-                                          .deleteFriends(
-                                        item.id!,
-                                        widget.params.id,
-                                      )
-                                          .then((value) {
-                                        // Logger().d(value);
-                                        value
-                                            ? FlushBarNotification.showSuccess(
-                                                context: context,
-                                                message:
-                                                    'User Deleted Successfully',
-                                              )
-                                            : FlushBarNotification.showError(
-                                                context: context,
-                                                message: 'Somethng went Wrong',
-                                              );
-                                      });
-                                    },
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: AppColors.kDanger,
+                                        SizedBox(
+                                          width: screenWidth(context) / 2,
+                                          child: TextRegular(
+                                            item.emailAddress.toString(),
+                                            fontWeight: FontWeight.w500,
+                                          ),
+                                        ),
+                                      ],
                                     ),
-                                  ),
-                                ],
+                                    const Spacer(),
+                                    GestureDetector(
+                                      onTap: () async {
+                                        await homeProvider
+                                            .deleteFriends(
+                                          item.id!,
+                                          widget.params.id,
+                                        )
+                                            .then((value) {
+                                          // Logger().d(value);
+                                          value
+                                              ? FlushBarNotification
+                                                  .showSuccess(
+                                                  context: context,
+                                                  message:
+                                                      'User Deleted Successfully',
+                                                )
+                                              : FlushBarNotification.showError(
+                                                  context: context,
+                                                  message:
+                                                      'Somethng went Wrong',
+                                                );
+                                        });
+                                      },
+                                      child: const Icon(
+                                        Icons.delete,
+                                        color: AppColors.kDanger,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             );
                           },

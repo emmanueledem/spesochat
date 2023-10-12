@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:logger/logger.dart';
 import 'package:spesochat/features/features.dart';
 
 class TempStorage {
@@ -27,9 +25,7 @@ class TempStorage {
   Future<void> saveUser(UsersModel user) {
     return storage
         .write(key: userKey, value: jsonEncode(user.toJson()))
-        .then((value) {
-      Logger().d('done');
-    });
+        .then((value) {});
   }
 }
 

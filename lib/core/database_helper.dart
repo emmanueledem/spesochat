@@ -2,8 +2,9 @@
 
 import 'dart:async';
 import 'package:path/path.dart';
-import 'package:spesochat/features/auth/auth.dart';
+import 'package:spesochat/features/features.dart';
 import 'package:sqflite/sqflite.dart';
+
 
 class DatabaseHelper {
   static final DatabaseHelper _databaseHelper = DatabaseHelper._();
@@ -27,6 +28,13 @@ class DatabaseHelper {
        ${RegistrationFields.username} $textType,
        ${RegistrationFields.emailAddress} $textType,
        ${RegistrationFields.password} $textType)
+          ''');
+        await db.execute('''
+           CREATE TABLE $tableChat (
+       ${ChatFields.id} $idType,
+       ${ChatFields.recieverId} $textType,
+       ${ChatFields.senderId} $textType,
+       ${ChatFields.message} $textType)
           ''');
       },
     );

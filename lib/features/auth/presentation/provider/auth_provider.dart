@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:logger/logger.dart';
 import 'package:spesochat/core/core.dart';
 import 'package:spesochat/features/auth/auth.dart';
 import 'package:spesochat/features/auth/data/auth_service.dart';
@@ -19,7 +18,6 @@ class AuthProvider extends ChangeNotifier {
   Future<bool> login(BuildContext contex, UsersModel user) async {
     var result = false;
     availableData = await _authService.login(user);
-    Logger().d(availableData);
     if (availableData.isNotEmpty) {
       result = true;
       final tempStorage = TempStorage();
